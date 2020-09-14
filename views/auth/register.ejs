@@ -1,0 +1,19 @@
+<% if (messages.length > 0) { %>
+    <p><%= messages %></p>
+ <% } %>
+
+
+<div class="container">
+    <h3 class="card-title"> Registre </h3>
+    <div class="card col-md-4">
+        <div class="card-body ">
+            <form method="POST" action="/auth/register/new" class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="nome">
+                <input class="form-control" type="email" name="email" placeholder="email@exemplo.com.br">
+                <input class="form-control" type="number" name="salary" id="salary" placeholder="Salário">
+                <input class="form-control" type="password" name="password" placeholder="Senha">
+                <button class="btn btn-primary mt-2" type="submit">Registrar</button>
+            </form>
+        </div>
+    </div>
+</div>

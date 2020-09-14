@@ -1,0 +1,39 @@
+<body>
+    
+
+
+<h2>
+    <%= salaryUpdated %>
+</h2>
+<h3>Vales</h3>
+<%if (vales == null || vales.length == 0) {%>
+    <small>Você ainda não tem vales esse mês.</small>
+    <a class="btn btn-primary btn-sm" href="/financeiro/newvale">Pedir Vale</a>
+<%} else {%>
+    <% vales.forEach(vale => { %>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <%= vale.value.toFixed(2) %>
+                </h2>
+            </div>
+            <div class="card-body">
+                <p><%= vale.description %></p>
+                <span class="text-muted"><%= vale.createdAt.toDateString()%></span>
+                <% if (vale.executed == false) { %>
+                    <a class="btn btn-danger" href="/financeiro/edit/<%=vale.id%>">Editar</a>
+                    <form action="/financeiro/edit/execute" method="POST">
+                        <input type="hidden" name="id" id="id" value="<%=vale.id%>">
+                        <input type="hidden" name="userId" id="userId" value="<%=vale.userId%>">
+                        <button class="btn btn-primary" type="submit">Pagar</button>
+                    </form>
+                <% } %>
+            </div>   
+        </div>
+    <% }) %>
+<%}%>
+
+</body>
+
+
+
