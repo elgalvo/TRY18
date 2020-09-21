@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="container">
+                <a href="/ideas/newidea" class="btn btn-primary mb-2">Nova ideia</a>
+                <table class="table">
+                    <tbody>
+                        <% allIdeas.forEach(idea => { %>
+                                <tr>
+                                    <th scope="row"><a href="/ideas/<%=idea.id%>"><%=idea.title%></a></th>
+                                    <td><%=idea.description%></td>
+                                    <td><%=idea.user.name%></td>
+                                </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 

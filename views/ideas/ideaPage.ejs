@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Editar ideia</div>
+                    <form action="/ideas/saveEditIdea" method="POST" class="form-group">
+                        <input class="form-control mt-2" type="text" name="title" id="title" placeholder="<%=idea.title%>">
+                        <div class="input-group">
+                            <textarea class="form-control mt-2" name="description" id="description" cols="30" rows="10" placeholder="<%=idea.description%>"></textarea>
+                        </div>
+                        <input type="hidden" name="id" id="id" value="<%=idea.id%>">
+                        <button class="btn btn-success mt-2" type="submit">Editar ideia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,9 +4,9 @@ const authController = require('../controller/authController')
 const authMiddlewares = require('../middlewares/authMiddlewares')
 
 // Rotas de Registro
-router.get('/register', authController.registerRender)
+router.get('/register', authMiddlewares.isAdmin, authController.registerRender)
 
-router.post('/register/new', authController.register)
+router.post('/register/new', authMiddlewares.isAdmin, authController.register)
 
 
 //Rotas de Login
@@ -35,6 +35,7 @@ router.get('/teste', authMiddlewares.isLogged, (req,res)=>{
     // Rota de deslogar
 router.get('/logout', (req,res)=>{
     req.session.user = undefined
+    req.flash('success',"Volte sempre.")
     res.redirect('/auth/login')
 })
 

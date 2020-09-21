@@ -17,6 +17,10 @@ const Vales = connectionDb.define('vales', {
     },
 }, {timestamps: true})
 
+
+
+
+
 User.hasMany(Vales)
 Vales.belongsTo(User)
 

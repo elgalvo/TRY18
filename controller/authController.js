@@ -7,14 +7,17 @@ const authController = {
 
         try {
             if(!name || !email || !password || !salary){
+                req.flash("error", "Os dados que você digitou são inválidos")
                 res.redirect('/auth/register')
             } else {
                 const userFind = await User.findOne({where:{email:email}})
                 if(userFind){
+                    req.flash("error","Já existe um usuário com esse e-mail")
                     res.redirect('/auth/register')
                 } else{
                     const newUser = await User.create({name: name, email:email, salary:salary, password: bcrypt.hashSync(password, 10)})
-                    res.redirect('/auth/login')
+                    res.flash("success", "Usuário criado com sucesso")
+                    res.redirect('/')
                 }
             }
         } catch (error){
@@ -31,6 +34,7 @@ const authController = {
         var {email, password} = req.body
         try {
             if(!email || !password){
+                req.flash("error", "Verifique os dados digitados.")
                 res.redirect('/auth/login')
             } else {
                 const user = await User.findOne({where:{email: email}})
@@ -40,10 +44,12 @@ const authController = {
                         id: user.id,
                         email: user.email,
                         admin: user.admin,
-                        salary: user.salary
+                        salary: user.salary,
+                        name: user.name
                     } 
-                    res.json(req.session.user.admin)
+                    res.redirect('/financeiro')
                 } else {
+                    req.flash("error", "Senha ou e-mail incorretos")
                     res.redirect('/auth/login')
                 }
             }

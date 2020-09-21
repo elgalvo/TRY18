@@ -1,12 +1,23 @@
-<div class="container">
-    <h3 class="card-title"> Novo Vale </h3>
-    <div class="card col-md-4">
-        <div class="card-body ">
-            <form method="POST" action="/financeiro/newvale/save" class="form-group">
-                <input class="form-control" type="number" name="value" placeholder="Valor">
-                <input class="form-control" type="text" name="description" placeholder="Descrição">
-                <button class="btn btn-primary mt-2" type="submit">Entrar</button>
-            </form>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-md-8">
+                <div class="card">
+                    <div class="card-header text-secondary">
+                        <h5>
+                            Pedir Vale
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form class="form-group" method="POST" action="/financeiro/newvale/save">
+                            <input class="form-control" type="number" name="value" id="value" step="any" placeholder="Valor do Vale">
+                            <input class="form-control mt-2" type="text" name="description" id="description" placeholder="Descrição">
+                            <button class="btn btn-success mt-2 btn-block" type="submit">Pedir Vale</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</body>

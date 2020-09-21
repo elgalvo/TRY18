@@ -6,11 +6,11 @@
         <div class="col-sm">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"><%= userLogged.name %></h4>
+                    <h4 class="card-title"><%= userProfile.name %></h4>
                 </div>
                 <div class="card-body">
                     <small>Salário:</small>
-                    <p class=""><%= userLogged.salary.toFixed(2) %></p>
+                    <p class=""><%= userProfile.salary.toFixed(2) %></p>
 
                     <small><strong>Salário Atualizado:</strong></small>
                     <p><%=salaryUpdated%></p>
@@ -23,8 +23,7 @@
             <h6>Vales</h6>
         <!-- CARDS DE VALES -->
             <% if (vales==null || vales.length==0) { %>
-                <small>Você não possui vales esse mês</small>
-                <a href="/financeiro/newvale" class="btn btn-primary">Pedir Vale</a>
+                <small>Nenhum vale encontrado.</small>
 
             <% } else { %>
 
@@ -32,7 +31,8 @@
             <%vales.forEach(vale => { %>
                 <!-- CARDS PARA VALES NÃO EXECUTADOS -->
                 <% if (vale.executed == false) { %>
-                    <div class="card bg-success text-white mb-3">
+
+                    <div class="card bg-info border-info text-white mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h4 class="mr-auto "><%-vale.value%></h4>
@@ -40,26 +40,22 @@
                             </div>
                             <p><%-vale.description%></p>
                             
+                            <% if (userLogged.admin) { %>
                                 <div class="d-flex justify-content">
-                                    <% if (userLogged.id == vale.userId || userLogged.admin) { %>
-                                     
-                                    <% } %>
                                     <a href="/financeiro/edit/<%-vale.id%>" class="btn btn-light btn-sm mr-2">Editar</a>
-                                    <% if (userLogged.admin) { %>
                                     <form class="mr-auto" method="POST" action="/financeiro/edit/execute">
                                         <input type="hidden" name="id" id="id" value="<%-vale.id%>">
                                         <input type="hidden" name="userId" id="userId" value="<%-vale.userId%>">
                                         <button class="btn btn-warning btn-sm">Pagar</button>
                                     </form>
-                                    <% } %>
                                 </div>
-
+                            <% } %>
 
                         </div>
                     </div>
 
                 <% } else { %>
-                <!-- CARD COM INFORMAÇÕES DOS VALES EXECUTADOS -->
+                    <!--CARDS DE VALES EXECUTADOS-->
                     <div class="card bg-secondary text-white mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -69,9 +65,7 @@
                             <p><%-vale.description%></p>
                         </div>
                     </div>
-
                 <% } %>
-
             <%});%>
         <% } %>
         </div>
@@ -79,6 +73,7 @@
         <div class="col-sm">
             <h6>Filtrar</h6>
             <form action="/financeiro/filter" method="POST" class="form-group">
+                <input type="hidden" name="userid" id="userid" <%=vales[0].userId%>>
                 <select class="custom-select" name="month" id="month">
                     <option value="0">Janeiro</option>
                     <option value="1">Fevereiro</option>

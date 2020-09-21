@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Nova ideia</div>
+                    <form action="/ideas/saveIdea" method="POST" class="form-group">
+                        <input class="form-control mt-2" type="text" name="title" id="title" placeholder="Título da ideia">
+                        <div class="input-group">
+                            <textarea class="form-control mt-2" name="description" id="description" cols="30" rows="10" placeholder="Digite sua ideia! Seja bem descritivo se precisar."></textarea>
+                        </div>
+                        <button class="btn btn-success mt-2" type="submit">Criar ideia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

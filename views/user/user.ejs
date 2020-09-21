@@ -1,0 +1,109 @@
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <!-- CARD COM AS INFORMAÇÕES DO USUÁRIO -->
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"><%= userProfile.name %></h4>
+                    </div>
+                    <div class="card-body">
+                        <small>Salário:</small>
+                        <p class=""><%= userProfile.salary.toFixed(2) %></p>
+    
+                        <small><strong>Salário Atualizado:</strong></small>
+                        <p><%=salarioAtual%></p>
+                    </div>
+                </div>
+                <% if (userProfile.id == userLogged.id) { %>
+                    <a href="/financeiro/newvale" class="btn btn-primary mt-2">Novo Vale</a>
+                <% } %>
+            </div>
+            
+            <div class="col-sm">
+                <h6>Vales</h6>
+            <!-- CARDS DE VALES -->
+                <% if (vales==null || vales.length==0) { %>
+                    <small>Você não possui vales esse mês</small>
+                    <a href="/financeiro/newvale" class="btn btn-primary">Pedir Vale</a>
+    
+                <% } else { %>
+    
+                <!-- CARDS COM INFOMRAÇÕES DOS VALES -->
+                <%vales.forEach(vale => { %>
+                    <!-- CARDS PARA VALES NÃO EXECUTADOS -->
+                    <% if (vale.executed == false) { %>
+                        <div class="card bg-success text-white mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="mr-auto "><%-vale.value%></h4>
+                                    <small class="d-flex align-items-center"><%-dayjs(vale.createdAt).format('DD-MM-YYYY')%></small>
+                                </div>
+                                <p><%-vale.description%></p>
+                                
+                                <% if (userLogged.admin) { %>
+                                    <div class="d-flex justify-content">
+                                        <a href="/financeiro/edit/<%-vale.id%>" class="btn btn-light btn-sm mr-2">Editar</a>
+                                        <form class="mr-auto" method="POST" action="/financeiro/edit/execute">
+                                            <input type="hidden" name="id" id="id" value="<%-vale.id%>">
+                                            <input type="hidden" name="userId" id="userId" value="<%-vale.userId%>">
+                                            <button class="btn btn-warning btn-sm">Pagar</button>
+                                        </form>
+                                    </div>
+                                <% } %>
+    
+                            </div>
+                        </div>
+    
+                    <% } else { %>
+                    <!-- CARD COM INFORMAÇÕES DOS VALES EXECUTADOS -->
+                        <div class="card bg-secondary text-white mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h4><%-vale.value%></h4>
+                                    <small><%-dayjs(vale.createdAt).format('DD-MM-YYYY')%></small>
+                                </div>
+                                <p><%-vale.description%></p>
+                            </div>
+                        </div>
+    
+                    <% } %>
+    
+                <%});%>
+            <% } %>
+            </div>
+    
+            <div class="col-sm">
+                <h6>Filtrar</h6>
+                <form action="/financeiro/filter" method="POST" class="form-group">
+                    <input type="hidden" name="userid" id="userid" value="<%=userProfile.id%>">
+                    <select class="custom-select" name="month" id="month">
+                        <option value="0">Janeiro</option>
+                        <option value="1">Fevereiro</option>
+                        <option value="2">Março</option>
+                        <option value="3">Abril</option>
+                        <option value="4">Maio</option>
+                        <option value="5">Junho</option>
+                        <option value="6">Julho</option>
+                        <option value="7">Agosto</option>
+                        <option value="8">Setembro</option>
+                        <option value="9">Outubro</option>
+                        <option value="10">Novembro</option>
+                        <option value="11">Dezembro</option>
+                    </select>
+                    <select class="custom-select mt-2" name="year" id="year">
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+                </form>
+            </div>
+    
+        </div>
+    </div>
+    </body>
+    
+    
+    
+    
