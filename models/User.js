@@ -1,30 +1,29 @@
-const Sequelize = require('sequelize')
-const connectionDb = require('../database/database')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 
-const User = connectionDb.define('users', {
+const UserSchema = new Schema({
     name: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: String,
+        required: true,
     },
     email:{
-        type: Sequelize.STRING,
-        allowNull: false
+        type: String,
+        required: true,
     },
     password: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: String,
+        required: true,
     },
     admin:{
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        type: Boolean,
+        default: false,
     },
     salary:{
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        defaultValue: 1200
-    }
+        type: Number,
+        required: true
+    },
+
 }, {timestamps: true})
 
-
-module.exports = User
+module.exports = mongoose.model('User', UserSchema)

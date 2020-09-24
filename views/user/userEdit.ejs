@@ -1,0 +1,26 @@
+<% if (messages.length > 0) { %>
+    <p><%= messages.info %></p>
+ <% } %>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"> Registre </h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/user/edit/save" class="form-group">
+                    <input class="form-control mt-2" type="text" name="name" placeholder="<%=userProfile.name%>">
+                    <input class="form-control mt-2" type="email" name="email" placeholder="<%=userProfile.email%>">
+                    <% if (userLogged.admin) { %>
+                        <input class="form-control mt-2" type="number" name="salary" id="salary" placeholder="<%=userProfile.salary.toLocaleString('pt-BR', {minimumFractionDigits: 2, style:'currency', currency:"BRL"})%>">
+                    <% } %>
+                    <input type="hidden" name="id" id="id" value="<%=userProfile.id%>">
+                    <button class="btn btn-primary mt-2" type="submit">Editar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

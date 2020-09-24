@@ -10,6 +10,9 @@
                                     <th scope="row"><a href="/ideas/<%=idea.id%>"><%=idea.title%></a></th>
                                     <td><%=idea.description%></td>
                                     <td><%=idea.user.name%></td>
+                                    <% if (userLogged.id == idea.user.id || userLogged.admin) { %>
+                                        <td><a class="btn btn-warning" href="/ideas/edit/<%-idea.id%>">Editar</a></td>
+                                    <% } %>
                                 </tr>
                         <% }) %>
                     </tbody>

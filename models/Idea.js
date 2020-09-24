@@ -1,23 +1,27 @@
-const Sequelize = require('sequelize')
-const connectionDb = require('../database/database')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+//const connectionDb = require('../database/database')
 const User = require('./User')
 
-const Idea = connectionDb.define('ideas', {
+const IdeaSchema = new Schema( {
     title:{
-        type:Sequelize.STRING,
-        allowNull: false
+        type: String,
+        required: true,
     },
     description:{
-        type: Sequelize.STRING,
-        allowNull: true,
+        type: String,
+        required: false,
     },
     executed:{
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+        type: Boolean,
+        default: false,
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref:'User',
+        required: true
     }
+
 }, {timestamps: true})
 
-Idea.belongsTo(User)
-User.hasMany(Idea)
-
-module.exports = Idea
+module.exports = mongoose.model('Idea', IdeaSchema)

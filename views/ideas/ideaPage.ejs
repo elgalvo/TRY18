@@ -14,6 +14,13 @@
                     </form>
                 </div>
             </div>
+
+            <% if ((userLogged.id == idea.userId) || (userLogged.admin)) { %>
+                <form action="/ideas/delete" method="POST">
+                    <input type="hidden" name='id' id="id" value="<%-idea.id%>">
+                    <button class="btn btn-outline-danger mt-2 btn-block">Apagar ideia</button>
+                </form>
+            <% } %>
         </div>
     </div>
 </div>

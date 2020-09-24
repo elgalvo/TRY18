@@ -15,7 +15,8 @@ const ideaController = {
                 req.flash('error',"Sua ideia precisa de um título.")
                 res.redirect('/ideas/newidea')
             } else {
-                const idea = await Idea.create({title: title, description:description, userId: req.session.user.id})
+                const idea = await Idea.create({title: title, description:description, user: req.session.user.id})
+                const ideaSaved = await idea.save()
                 req.flash('success',"Ideia criada! Muito obrigado pela contribuição! :D")
                 res.redirect('/ideas')
             }
@@ -33,7 +34,7 @@ const ideaController = {
                 req.flash('error','Página inválida')
                 res.redirect('/')
             } else {
-                const idea = await Idea.findOne({where:{id:id}})
+                const idea = await Idea.findOne({_id:id}).sort({createdAt:'desc'})
                 res.render('ideas/ideaPage', {idea:idea})
             }
         } catch (error) {
@@ -42,31 +43,46 @@ const ideaController = {
     },
     
     saveEditIdea: async (req,res)=>{
-        const {title, description, id} = req.body
+        try {
+            var {title, description, id} = req.body
+            const actualIdeaData = Idea.findOne({_id:id})
 
-
-        if(!title){
-            await Idea.update({description:description}, {where:{id:id}}).then((idea)=>{
-                req.flash('success',"Ideia alterada com sucesso.")
-                res.redirect('/ideas')
-            })
-        } else if(!description){
-            await Idea.update({title: title}, {where:{id:id}}).then((idea)=>{
-                req.flash('success','Ideia alterada com sucesso')
-                res.redirect('/ideas')
-            })
-        } else if (title && description){
-            await Idea.update({title: title, description: description}, {where:{id:id}})
-            req.flash('succes', 'Ideia alterada com sucesso')
+            if(!title){
+                title = actualIdeaData.title
+            }
+            if(!description){
+                description = actualIdeaData.description
+            }
+            await Idea.update({_id:id}, {title:title, description:description})
+            req.flash('success', 'Ideia editada com sucesso')
             res.redirect('/ideas')
+        } catch (error) {
+            console.log(error)
         }
+        
     },
 
     allIdeas: async(req,res)=>{
-        const allIdeas = await Idea.findAll({include:{model:User}, order:[['createdAt', 'DESC']],})
+        const allIdeas = await Idea.find().populate('user').sort({createdAt:'desc'})
         res.render('ideas/ideas', {allIdeas:allIdeas})
     },
 
+    deleteIdea: async(req,res)=>{
+        var id = req.body.id
+        
+        if((req.session.user.id == id) || req.session.user.admin ){
+            await Idea.deleteOne({_id:id}, (err, data)=>{
+                if(err){
+                    req.flash('error', err)
+                    res.redirect('/ideas')
+                } else {
+                    req.flash('success', "Ideia apagada.")
+                    res.redirect('/ideas')
+                }
+            })
+
+        }
+    }
 
 
 }

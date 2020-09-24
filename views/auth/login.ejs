@@ -1,16 +1,19 @@
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Entre</h4>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Entre</h5>
+                </div>
+                <div class="card-body ">
+                    <form method="POST" action="/auth/login/auth" class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="email@exemplo.com.br">
+                        <input class="form-control mt-2" type="password" name="password" placeholder="Senha">
+                        <button class="btn btn-primary mt-2 btn-block" type="submit">Entrar</button>
+                    </form>
+                </div>
             </div>
-                    <div class="card-body ">
-                        <form method="POST" action="/auth/login/auth" class="form-group">
-                            <input class="form-control" type="email" name="email" placeholder="email@exemplo.com.br">
-                            <input class="form-control mt-2" type="password" name="password" placeholder="Senha">
-                            <button class="btn btn-primary mt-2 btn-block" type="submit">Entrar</button>
-                        </form>
-                    </div>
         </div>
     </div>
-</div>
+</body>
+

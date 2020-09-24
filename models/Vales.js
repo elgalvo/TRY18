@@ -1,28 +1,25 @@
-const Sequelize = require('sequelize')
-const connectionDb = require('../database/database')
-const User = require('./User')
+const mongoose = require('mongoose')
+// const connectionDb = require('../database/database')
+const Schema = mongoose.Schema
 
-const Vales = connectionDb.define('vales', {
+const ValeSchema = new Schema({
     value: {
-        type: Sequelize.FLOAT,
-        allowNull: false
+        type: Number,
+        required: true,
     },
     description: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: String,
     },
     executed: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        type: Boolean,
+        default: false,
     },
+    user:{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+
 }, {timestamps: true})
 
 
-
-
-
-User.hasMany(Vales)
-Vales.belongsTo(User)
-
-
-module.exports = Vales
+module.exports = mongoose.model('Vales', ValeSchema)

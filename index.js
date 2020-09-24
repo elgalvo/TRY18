@@ -6,16 +6,13 @@ const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const connectionDb = require('./database/database')
 const flash = require('express-flash')
+const mongoose = require('mongoose')
 
 
 const app = express()
 
-//SQL DATABASE
-connectionDb.authenticate().then(()=>{
-    console.log('conexão com a DB feita')
-}).catch((error)=>{
-    console.log(error)
-})
+console.log(process.env.MONGOURI)
+
 
 
 // MIDDLEWARE ----------------
@@ -35,7 +32,6 @@ app.use(session({
 }))
 app.use(flash())
 
-
 app.locals.dayjs = require('dayjs')
 app.use((req,res,next) =>{
     res.locals.userLogged = req.session.user
@@ -50,6 +46,15 @@ app.set('views', __dirname + '/views')
 app.set('layout', 'layout/layouts')
 app.use(expressLayouts)
 app.use(express.static('public'))
+
+//MONGOOOSE
+mongoose.connect(process.env.MONGOURI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify:false}, (error)=>{
+    if(error){
+        console.log(error)
+    } else {
+        console.log('Database Conectada')
+    }
+})
 
 
 //ROUTES

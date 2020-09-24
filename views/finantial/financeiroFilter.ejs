@@ -10,10 +10,10 @@
                 </div>
                 <div class="card-body">
                     <small>Salário:</small>
-                    <p class=""><%= userProfile.salary.toFixed(2) %></p>
+                    <p class=""><%= userProfile.salary.toLocaleString('pt-BR', {minimumFractionDigits: 2, style:'currency', currency:"BRL"}) %></p>
 
                     <small><strong>Salário Atualizado:</strong></small>
-                    <p><%=salaryUpdated%></p>
+                    <p><%=salaryUpdated.toLocaleString('pt-BR', {minimumFractionDigits: 2, style:'currency', currency:"BRL"})%></p>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="col-sm">
             <h6>Vales</h6>
         <!-- CARDS DE VALES -->
-            <% if (vales==null || vales.length==0) { %>
+            <% if (!vales==null || vales.length==0) { %>
                 <small>Nenhum vale encontrado.</small>
 
             <% } else { %>
@@ -44,7 +44,7 @@
                                     <a href="/financeiro/edit/<%-vale.id%>" class="btn btn-light btn-sm mr-2">Editar</a>
                                     <form class="mr-auto" method="POST" action="/financeiro/edit/execute">
                                         <input type="hidden" name="id" id="id" value="<%-vale.id%>">
-                                        <input type="hidden" name="userId" id="userId" value="<%-vale.userId%>">
+                                        <input type="hidden" name="user" id="user" value="<%-vale.user%>">
                                         <button class="btn btn-warning btn-sm">Pagar</button>
                                     </form>
                                 </div>
@@ -58,7 +58,7 @@
                     <div class="card bg-secondary text-white mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h4><%-vale.value%></h4>
+                                <h4><%-vale.value.toLocaleString('pt-BR', {minimumFractionDigits: 2, style:'currency', currency:"BRL"})%></h4>
                                 <small><%-dayjs(vale.createdAt).format('DD-MM-YYYY')%></small>
                             </div>
                             <p><%-vale.description%></p>
@@ -72,7 +72,7 @@
         <div class="col-sm">
             <h6>Filtrar</h6>
             <form action="/financeiro/filter" method="POST" class="form-group">
-                <input type="hidden" name="userid" id="userid" value="<%=userProfile.id%>">
+                <input type="hidden" name="user" id="user" value="<%=userProfile.id%>">
                 <select class="custom-select" name="month" id="month">
                     <option value="0">Janeiro</option>
                     <option value="1">Fevereiro</option>

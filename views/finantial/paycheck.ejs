@@ -1,9 +1,19 @@
-<div class="container">
-    <div class="row">
-        <% users.forEach(user => { %>
-            <div class="card">
-                <a class="card-title" href="/user/<%-user.id%>"><%-user.name%></a>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <% users.forEach(user => { %>
+                    <a href="/user/<%-user.id%>">
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title"><%-user.name%></h5>
+                            <span class="card-text mr-auto"><%-user.salary%></span>
+                        </div>
+                    </div>
+                    </a>
+                <% }) %>
             </div>
-        <% }) %>
-    </div>
-</div>
+        </div>
+        <a href="/auth/register" class="btn btn-primary mt-2">Criar novo usuário</a>    
+    </div> 
+</body>
