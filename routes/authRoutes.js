@@ -27,6 +27,11 @@ router.post('/login/auth', authController.login)
 router.get('/forgot', authController.forgotRender)
 router.post('/forgot', authController.forgotPassword)
 
+router.get('/logout', (req,res)=>{
+    req.session.user = undefined
+    req.flash('success', 'Volte sempre')
+    res.redirect('/auth/login')
+})
 
 
 module.exports = router
