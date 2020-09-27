@@ -1,0 +1,4 @@
+PORT = //Porta do Express.
+MONGODEV = //URI Mongo em desenvolvimento (localhost)
+MONGOPROD = //URI do Mongo em Produção
+SECRET = //usada nas configurações da sessão
