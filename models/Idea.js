@@ -24,4 +24,5 @@ const IdeaSchema = new Schema( {
 
 }, {timestamps: true})
 
+
 module.exports = mongoose.model('Idea', IdeaSchema)

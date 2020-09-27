@@ -18,8 +18,18 @@ const ValeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-
 }, {timestamps: true})
+
+ValeSchema.static.getByMonthAndYear = (vales, month, year)=>{
+    function sameMonthAndYear(vale){
+        if(vale.createdAt.getMonth() == parseInt(month)){
+            if(vale.createdAt.getFullYear() == parseInt(year)){
+                return vale
+            }
+        }
+    }
+    return vales.filter(sameMonthAndYear)
+}
 
 
 module.exports = mongoose.model('Vales', ValeSchema)

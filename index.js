@@ -11,8 +11,6 @@ const mongoose = require('mongoose')
 
 const app = express()
 
-console.log(process.env.MONGOURI)
-
 
 
 // MIDDLEWARE ----------------
@@ -48,7 +46,7 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 
 //MONGOOOSE
-mongoose.connect("mongodb://brindelmanager:capivara@mongo_brindelsistema:27017/brindelsistema", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify:false}, (error)=>{
+mongoose.connect(process.env.MONGOURI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify:false}, (error)=>{
     if(error){
         console.log(error)
     } else {

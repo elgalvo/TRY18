@@ -9,6 +9,7 @@ const ideaController = {
 
 
     newIdeaSave: async (req,res)=>{
+
         const {title, description} = req.body
         try {
             if(!title){

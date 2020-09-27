@@ -159,11 +159,12 @@ const finantialController = {
                 }
                 let valesFilter = vales.filter(sameMonthNYear)
 
+
                 // Pega o valor total dos vales no mês atual
                 function valorTotalValesMes (total, vale){
                     return total + vale.value
                 }
-                var valorTotalVales = valesFilter.reduce(valorTotalValesMes,0)
+                var valorTotalVales = valesFiltered.reduce(valorTotalValesMes,0)
                 var salaryUpdated = req.session.user.salary - valorTotalVales
         
                 res.render('finantial/financeiroFilter', {userProfile: userProfile, vales: valesFilter, valesTotalValue: valorTotalVales, salaryUpdated: salaryUpdated})

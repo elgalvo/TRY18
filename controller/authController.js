@@ -127,6 +127,10 @@ const authController = {
 
 
     },
+
+    logout: async(req,res)=>{
+        
+    }
 }
 
 module.exports = authController
