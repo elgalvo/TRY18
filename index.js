@@ -56,7 +56,7 @@ mongoose.connect(process.env.MONGOURI, {useNewUrlParser: true, useCreateIndex: t
 
 
 //ROUTES
-const authRoutes = require('./routes/authRoutes')
+const authRoutes = require('./routes/auth.routes');
 const finantialRoutes = require('./routes/finantialRoutes')
 const userRoutes = require('./routes/userRoutes')
 const ideaRoutes = require('./routes/ideaRoutes')
